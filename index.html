@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Mon Mini Paint</title>
+  <meta charset="utf-8" />
+  <!-- <link rel="stylesheet" href="styles/reset.css"> -->
+  <link rel="stylesheet" href="styles/style.css" type="text/css" />
+</head>
+
+<body>
+  <!-- <h1>Mon Mini Paint</h1> -->
+  <!-- <div id="banner">
+    <img src="./banner.png" alt="">
+  </div> -->
+  <div id="app">
+    <section>
+      <canvas id="canvas" width="84" height="84"></canvas>
+
+      <div class="buttons">
+        <button class="button blue" id="reset">Clear</button>
+
+        <!-- https://alexandre.free.beeceptor.com/ -->
+        <!-- 50 per day -->
+        <input id="api-url" type="text" placeholder="Api URL" value="http://192.168.99.101:5000/guess_number">
+        <button class="button green" id="send">Send</button>
+		<!-- <button class="button blue" id="load_modele">Load new modele</button> -->
+      </div>
+    </section>
+
+    <section id="response-wrapper">
+      <h2>Response:</h2>
+      <pre id="response">
+      </pre>
+    </section>
+  </div>
+
+
+
+  <script type="text/javascript" src="./scripts/paint.js"></script>
+</body>
+
+</html>
