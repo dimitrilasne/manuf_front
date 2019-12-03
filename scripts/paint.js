@@ -12,7 +12,7 @@ var context = canvas.getContext('2d');
 const responseDOM = document.querySelector('#response');
 const sendButtonDOM = document.querySelector('#send');
 
-// Trait arrondi :
+// Trait arrondi
 context.lineJoin = 'round';
 context.lineCap = 'round';
 
@@ -103,9 +103,9 @@ document.querySelector("#send").addEventListener('click', function () {
   }
 
   var canvas_tmp = document.getElementById("canvas");	// Ca merde en pernant le selecteur jQuery
-  var canvas_tmp_tx = canvas_tmp.getContext("2d");
+  /*var canvas_tmp_tx = canvas_tmp.getContext("2d");
   const imge = canvas_tmp_tx.getImageData(0, 0, 84, 84)
-  const img = imge.data
+  const img = imge.data*/
 
   //const img = canvas_tmp.toDataURL("image/png");
 
@@ -118,23 +118,24 @@ document.querySelector("#send").addEventListener('click', function () {
   var myHeaders = new Headers();
   myHeaders.append("Origin", "192.168.99.101");
 
-  fetch(apiUrl, {
-    method: 'post',
-    headers: myHeaders,
-    body: img
-  }).then(response => {
+  canvas_tmp.toBlob(function(blob) {
+    fetch(apiUrl, {
+      method: 'post',
+      headers: myHeaders,
+      body: blob
+    }).then(response => {
     return response.json();
   }).then(data => {
     const prettyData = formatData(data);
     console.log('data', data)
-    // console.log('payload', data)
     responseDOM.innerHTML = prettyData;
   }).catch(e => {
     responseDOM.textContent = e.message
   }).finally(() => {
     sendButtonDOM.className = "button green";
     sendButtonDOM.textContent = 'Send ';
-  })
+   })
+ })
 
 
   function formatData(obj) {
