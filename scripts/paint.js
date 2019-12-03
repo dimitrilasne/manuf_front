@@ -105,8 +105,8 @@ document.querySelector("#send").addEventListener('click', function () {
   var canvas_tmp = document.getElementById("canvas");	// Ca merde en pernant le selecteur jQuery
   var canvas_tmp_tx = canvas_tmp.getContext("2d");
   const imge = canvas_tmp_tx.getImageData(0, 0, 84, 84)
-  const img = imge.data 
-  
+  const img = imge.data
+
   //const img = canvas_tmp.toDataURL("image/png");
 
   // console.log(img);
@@ -125,10 +125,10 @@ document.querySelector("#send").addEventListener('click', function () {
   }).then(response => {
     return response.json();
   }).then(data => {
-    const prettyData = JSON.stringify(data, undefined, 2);
-    console.log('prettyData', prettyData)
+    const prettyData = formatData(data);
+    console.log('data', data)
     // console.log('payload', data)
-    responseDOM.textContent = prettyData;
+    responseDOM.innerHTML = prettyData;
   }).catch(e => {
     responseDOM.textContent = e.message
   }).finally(() => {
@@ -137,7 +137,18 @@ document.querySelector("#send").addEventListener('click', function () {
   })
 
 
+  function formatData(obj) {
+    const values = Object.values(obj).map(Number);
+    const maxNumber = Math.max(...values);
+    const index = values.indexOf(maxNumber);
+    const sentence = values.map((e, i) => (
+      i === index ?
+        `<p class="winner">${i} : ${(e * 100).toFixed(2)}%</p>`
+        :
+        `<p>${i} : <span class="orange">${(e * 100).toFixed(2)}%</span></p>`
+    ));
+    return sentence.join('');
+    console.log("maxNumber", maxNumber);
+  }
 
-  // Todo: send to API
-  // document.write('<img src="' + img + '"/>');
 });
